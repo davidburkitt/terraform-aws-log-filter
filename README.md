@@ -23,4 +23,5 @@
 
 | Name | Description |
 |------|-------------|
-| aws\_metric\_log\_filter\_name | formatted list of log filter names |
+| log\_filters\_output | formatted list of log filter names |
+
