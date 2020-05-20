@@ -9,7 +9,7 @@ provider "aws" {
   shared_credentials_file = var.aws_creds
 }
 
-resource "aws_cloudwatch_log_metric_filter" "lambdaLogMetricFilter" {
+resource "aws_cloudwatch_log_metric_filter" "logMetricFilter" {
   count = length(var.log_filters)
   name           = var.log_filters[count.index].name
   pattern        = var.log_filters[count.index].pattern

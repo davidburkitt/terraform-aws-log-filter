@@ -1,5 +1,5 @@
-output "aws_metric_log_filter_name" {
-  value = "${formatlist("%v", aws_cloudwatch_log_metric_filter.lambdaLogMetricFilter.*.id)}"
+output "log_filters_output" {
+  value = "${formatlist("%v", aws_cloudwatch_log_metric_filter.logMetricFilter.*.id)}"
   description = "formatted list of log filter names"
 }
 
