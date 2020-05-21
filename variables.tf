@@ -8,8 +8,8 @@ variable "aws_region" {
   description = "aws region"
 }
 
-variable "log_filters" {
-  type = list(object({
+variable "log_filter" {
+  type = object({
     name              = string # log filter name
     metric_name_space = string # custom name space for metrics
     metric_name       = string # metric name 
@@ -17,6 +17,6 @@ variable "log_filters" {
     pattern           = string # pattern for space delimited log stream
     metric_value      = string # metric value (static e.g. "1" or dynamic e.g "$field")
     metric_default_value = number # default metric value - should be "0"
-  }))
-  description = "List of filter objects"
+  })
+  description = "Object represeting log filter"
 }

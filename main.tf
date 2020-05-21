@@ -9,16 +9,15 @@ provider "aws" {
   shared_credentials_file = var.aws_creds
 }
 
-resource "aws_cloudwatch_log_metric_filter" "logMetricFilter" {
-  count = length(var.log_filters)
-  name           = var.log_filters[count.index].name
-  pattern        = var.log_filters[count.index].pattern
-  log_group_name = var.log_filters[count.index].log_group
+resource "aws_cloudwatch_log_metric_filter" "log_metric_filter" {
+  name           = var.log_filter.name
+  pattern        = var.log_filter.pattern
+  log_group_name = var.log_filter.log_group
 
   metric_transformation {
-    name      = var.log_filters[count.index].metric_name
-    namespace = var.log_filters[count.index].metric_name_space
-    value     = var.log_filters[count.index].metric_value
-    default_value = var.log_filters[count.index].metric_default_value
+    name      = var.log_filter.metric_name
+    namespace = var.log_filter.metric_name_space
+    value     = var.log_filter.metric_value
+    default_value = var.log_filter.metric_default_value
   }
 }
