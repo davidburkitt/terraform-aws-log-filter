@@ -19,5 +19,5 @@ steps:
 - script: cd $(build.artifactstagingdirectory)/git-secrets; sudo make install
   displayName: 'Make git-secrets install'
 
-- script: cd $(build.artifactstagingdirectory)/s;git secrets --scan
+- script: cd $(Build.Repository.LocalPath);git secrets --scan
   displayName: 'Scan pipeline repo for secrets'
