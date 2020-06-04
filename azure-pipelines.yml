@@ -9,15 +9,28 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-steps:
-- script: mkdir $(build.artifactstagingdirectory)/git-secrets
-  displayName: 'Create empty directory for git-secrets clone'
+stages:
+  - stage: ScanForSecrets
+    dependsOn: []
+    jobs:
+      - job: GitSecrets
+        steps:
+        - script: mkdir $(build.artifactstagingdirectory)/git-secrets
+          displayName: 'Create empty directory for git-secrets clone'
 
-- script: git clone https://github.com/awslabs/git-secrets $(build.artifactstagingdirectory)/git-secrets
-  displayName: 'Clone git-secrets'
+        - script: git clone https://github.com/awslabs/git-secrets $(build.artifactstagingdirectory)/git-secrets
+          displayName: 'Clone git-secrets'
 
-- script: cd $(build.artifactstagingdirectory)/git-secrets; sudo make install;
-  displayName: 'Make git-secrets install'
+        - script: cd $(build.artifactstagingdirectory)/git-secrets; sudo make install;
+          displayName: 'Make git-secrets install'
 
-- script: cd $(Build.Repository.LocalPath);git secrets --register-aws;git secrets --scan
-  displayName: 'Scan pipeline repo for secrets'
+        - script: cd $(Build.Repository.LocalPath);git secrets --register-aws;git secrets --scan
+          displayName: 'Scan pipeline repo for secrets'
+  - stage: ContinueBuild
+    dependsOn:
+      - ScanForSecrets
+    jobs:
+      - job: NextJob
+        steps:
+        - script: echo 'Scan for secrets passed, continue.'
+          displayName: 'Scan for secrets passed, continue'
