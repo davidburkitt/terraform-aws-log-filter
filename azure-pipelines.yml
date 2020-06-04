@@ -16,8 +16,8 @@ steps:
 - script: git clone https://github.com/awslabs/git-secrets $(build.artifactstagingdirectory)/git-secrets
   displayName: 'Clone git-secrets'
 
-- script: cd $(build.artifactstagingdirectory)/git-secrets; sudo make install
+- script: cd $(build.artifactstagingdirectory)/git-secrets; sudo make install;
   displayName: 'Make git-secrets install'
 
-- script: cd $(Build.Repository.LocalPath);ls -lrta;git secrets --scan
+- script: cd $(Build.Repository.LocalPath);git secrets --register-aws;git secrets --scan
   displayName: 'Scan pipeline repo for secrets'
