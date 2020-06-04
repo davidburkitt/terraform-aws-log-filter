@@ -16,5 +16,5 @@ steps:
 - script: git clone https://github.com/awslabs/git-secrets $(build.artifactstagingdirectory)/git-secrets
   displayName: 'Clone git-secrets'
 
-- script: cd $(build.artifactstagingdirectory)/git-secrets; make install
+- script: cd $(build.artifactstagingdirectory)/git-secrets; sudo make install
   displayName: 'Make git-secrets install'
